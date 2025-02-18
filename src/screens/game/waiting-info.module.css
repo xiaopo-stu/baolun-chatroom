@@ -1,0 +1,97 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #9abdff;
+    padding: 1rem;
+    border-radius: .5rem;
+}
+
+.information {
+    flex-basis: 100%;
+}
+
+.roomCode {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    background-color: #fff;
+    width: min-content;
+    text-align: center;
+    border-radius: .5rem;
+
+    code {
+        font-size: .75rem;
+        padding: .5rem;
+        border-radius: .5rem;
+        background: #f0f8ff;
+        margin-top: .25rem;
+        margin-bottom: .5rem;
+        user-select: all;
+    }
+
+    img {
+        image-rendering: pixelated;
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.playerGroup {
+    margin-top: 1rem;
+    font-size: .75rem;
+    line-height: 1;
+}
+
+.player {
+    background-color: white;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    margin-top: .5rem;
+
+    span{
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    button{
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.button {
+    padding: .5rem;
+    border: 0;
+    border-radius: .5rem;
+    background-color: #f0f8ff;
+    outline: none;
+    color: #304050;
+    font-size: 1rem;
+
+    &.ready {
+        background-color: #59eb7e;
+    }
+    
+    &.unready {
+        background-color: #e73250;
+        color: #f0f8ff;
+    }
+
+    &.spectator {
+        background-color: #bed5ff;
+        color: #304050;
+    }
+
+    &.waiting {
+        background-color: #76a5fd;
+        color: #105faf;
+    }
+
+    &.start {
+        background-color: #f0f8ff;
+    }
+}

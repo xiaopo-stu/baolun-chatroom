@@ -1,0 +1,164 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #9abdff;
+    flex-shrink: 0;
+    width: 300px;
+    padding: 1rem;
+    padding-right: calc(1rem - 10px);
+    border-radius: .5rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #0004 #0000;
+}
+
+.hint {
+    color: #3338;
+}
+
+.optionTitle {
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    font-size: 1.125rem;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.gamemode {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    .mode {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .25rem;
+        border: .5rem solid transparent;
+        border-radius: .5rem;
+        color: #135393;
+        background-color: #76a5fd;
+        outline: 0;
+        font-size: 1rem;
+        transition: .25s;
+    }
+
+    .intro {
+        padding: .5rem;
+        border-radius: .5rem;
+        background-color: #668ed7;
+        margin-top: .5rem;
+    }
+
+    .active {
+        background-color: white;
+        color: #304050;
+
+        &.standard {
+            /* border: .5rem solid #ffa3a3; */
+        }
+
+        &.friendly {
+            /* border: .5rem solid #a3ffba; */
+        }
+
+        &.endless {
+            /* border: .5rem solid #a3ffba; */
+        }
+    }
+}
+
+.questionType {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    .option,
+    .upload {
+        padding: .25rem;
+        border: .5rem solid transparent;
+        border-radius: .5rem;
+        color: #135393;
+        background-color: #76a5fd;
+        outline: 0;
+        font-size: 1rem;
+        transition: .25s;
+        text-align: center;
+    }
+
+    .active {
+        background-color: white;
+        color: #304050;
+    }
+
+    .upload {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #bed5ff;
+        color: #304050;
+        text-decoration: none;
+    }
+}
+
+.optionItem {
+    display: flex;
+    padding: .5rem;
+    border-radius: .5rem;
+    transition: background-color .25s;
+    align-items: center;
+    gap: .5rem;
+
+    &:hover {
+        background-color: #90b6fc;
+    }
+
+    .prompt{
+        display: flex;
+        gap: .5rem;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .name {
+            flex-grow: 1;
+        }
+
+        .hint {
+            font-size: .875rem;
+            line-height: calc(4rem / 3);
+        }
+    }
+
+    .value {
+        white-space: nowrap;
+        text-align: right;
+    }
+}
+
+.optionRangeItem {
+    flex-direction: column;
+    align-items: stretch;
+
+    .prompt {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.optionItemCheckbox {
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.inputCheck{
+    display: flexbox;
+    transform: scale(1.5);
+}

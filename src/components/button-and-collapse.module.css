@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapse {
+    overflow: hidden;
+    height: calc-size(auto, size);
+    transition: height 0.25s;
+}
+
+.collapsed {
+    height: 0;
+}

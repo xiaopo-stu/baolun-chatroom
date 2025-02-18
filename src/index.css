@@ -1,0 +1,31 @@
+:root {
+    font-weight: 305;
+    font-size: 16px;
+    font-family: "Misans TC VF", "Misans TC", "MiSansTC", "Misans VF", "Misans", "Misans", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #2b3c6d;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+button {
+    cursor: pointer;
+    font-family: "Misans TC VF", "Misans TC", "MiSansTC", "Misans VF", "Misans", "Misans", sans-serif;
+    font-weight: 305;
+    
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+code, textarea {
+    font-family: "Misans TC VF", "Misans TC", "MiSansTC", "Misans VF", "Misans", "Misans", sans-serif;
+    font-weight: 305;
+}

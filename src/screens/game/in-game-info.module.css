@@ -1,0 +1,65 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #9abdff;
+    padding: 1rem;
+    border-radius: .5rem;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: .5rem;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    line-height: 1.5;
+
+    .extreme {
+        text-align: right;
+
+        .min {
+            color: #4469D1;
+        }
+
+        .max {
+            color: #23aab5;
+        }
+
+        div{
+            text-align: right;
+        }
+    }
+}
+
+.playerGroup {
+    margin-top: 1rem;
+    font-size: .75rem;
+    line-height: 1;
+}
+
+.player {
+    background-color: white;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    margin-top: .5rem;
+
+    span{
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    button{
+        background-color: transparent;
+        border: none;
+    }
+}
