@@ -203,6 +203,11 @@ export class PlayerAgent extends EventEmitter implements InteractionAgent {
             this.emit("update-participants", this.getParticipants());
         });
 
+        connection.onConnectionMessage(conn, "life-decrease", life => {
+            this.life = life;
+            this.emit("life-change", life);
+        });
+
         conn.on("data", console.log); // [DEBUG]
     }
 

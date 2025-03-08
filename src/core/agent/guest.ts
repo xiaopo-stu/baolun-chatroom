@@ -105,6 +105,11 @@ export class GuestAgent implements GameAgent {
             });
         });
 
+        this.game.on("life-decrease", (life: number) => {
+            console.log("life-decrease", life);
+            connection.send(this.connection, "life-decrease", life);   
+        });
+
         this.game.on("close", () => {
             this.connection.close();
         });

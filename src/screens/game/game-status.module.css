@@ -5,4 +5,13 @@
     background-color: #9abdff;
     padding: 1rem;
     border-radius: .5rem;
+    gap: .5rem;
+}
+
+.round{
+    background-color: #fff;
+    border-radius: 16px;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.333rem;
 }

@@ -36,8 +36,8 @@ export const GameStatus: FunctionComponent = function () {
     return (
         <div className={styles.container}>
             GameStatus
-            <div>Round : {round}</div>
-            <div>Timer : <Timer timeStamp={timeStamp} /></div>
+            <div className={styles.round}>{round}</div>
+            <div className={styles.timer}>Timer：<Timer timeStamp={timeStamp} /></div>
             <div>Health : {life}</div>
         </div>
     );

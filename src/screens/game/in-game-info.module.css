@@ -38,6 +38,16 @@
     }
 }
 
+.tensor{
+    background-color: white;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    margin-top: .5rem;
+}
+
 .playerGroup {
     margin-top: 1rem;
     font-size: .75rem;

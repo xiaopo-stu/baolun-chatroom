@@ -92,27 +92,42 @@ export class HostAgent extends EventEmitter implements InteractionAgent, GameAge
             this.emit("update-question", this.question);
             this.emit("update-answers", this.answers);
             this.emit("update-participants", this.getParticipants());
+            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("player-allow-answering", () => {
             this.emit("update-participants", this.getParticipants());
+            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("players-allow-answering", () => {
             this.emit("update-participants", this.getParticipants());
+            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("player-answer", (player: GameAgent, answer: string) => {
             this.answers.set(player.getId(), answer);
             this.emit("update-answers", this.answers);
             this.emit("update-participants", this.getParticipants());
+            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("player-was-sorted", (player: GameAgent, tensor: number) => {
             this.tensorMap.set(player.getId(), tensor);
             this.emit("update-participants", this.getParticipants());
+            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
-        
+
+        this.game.on("life-decrease", () => {
+            this.emit("update-life", this.game.life);
+        });
+
+        this.game.on("tensor-update", (playerId : string, tensor: number) => {
+            this.tensorMap.set(playerId, tensor);
+            this.emit("update-participants", this.getParticipants());
+            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
+        });
+
         this.game.on("close", () => {
             // TODO
         });
@@ -318,6 +333,7 @@ export class HostAgent extends EventEmitter implements InteractionAgent, GameAge
         this.allowAnswering = AgentAnswerAllowness.answered;
         this.game.answerBy(this, content);
         this.emit("answering-allowness-change", false);
+        
     }
 
     public sort(id: string): void {

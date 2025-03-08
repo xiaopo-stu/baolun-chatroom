@@ -211,6 +211,7 @@ export class GameHost extends EventEmitter {
     public async start() {
         await this.initialize();
         await this.run();
+        alert("your left is" + this.life);
         this.end();
     }
 
@@ -374,6 +375,7 @@ export class GameHost extends EventEmitter {
             
             this.nextPlayer(); // 要換人
             this.setAnswerOrder(); // 設定回答順序
+            this.tensors.clear(); // 清空等級卡
             this.destributeTensor(); // 分配等級卡
             this.clearMessages();
 
@@ -492,7 +494,12 @@ export class GameHost extends EventEmitter {
 
         // 為每個玩家分配一張等級卡
         for (const player of this.participants.values()) {
-            if (player === this.guesser) continue;
+            if (player === this.guesser){
+                player.setTensor(0);
+                this.tensors.set(player.getId(), 0);
+                this.emit("tensor-update", player.getId(), 0);
+                continue
+            };
 
             const index = Math.floor(Math.random() * tensors.length);
             if (index != tensors.length - 1)
@@ -501,6 +508,7 @@ export class GameHost extends EventEmitter {
             const tensor = tensors.pop()!;
             player.setTensor(tensor);
             this.tensors.set(player.getId(), tensor);
+            this.emit("tensor-update", player.getId(), tensor);
         }
     }
 
@@ -573,6 +581,8 @@ export class GameHost extends EventEmitter {
 
             const onSorted = (player: GameAgent) => {
                 const tensor = this.tensors.get(player.getId())!;
+
+                console.log("Tensor : " + tensor + "lastTensor : " + lastTensor);
 
                 if (tensor < lastTensor) {
                     hasError = true;

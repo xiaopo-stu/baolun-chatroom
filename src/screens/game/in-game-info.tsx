@@ -38,7 +38,11 @@ export const InGameInfo: FunctionComponent = function () {
         };
 
         agent.on("update-participants", onParticipantsChange);
-        return () => void agent.off("update-participants", onParticipantsChange);
+        agent.on("update-waiting-answering-players", onParticipantsChange);
+        return () => {
+            void agent.off("update-participants", onParticipantsChange);
+            void agent.off("update-waiting-answering-players", onParticipantsChange);
+        };
     }, [agent, setGuesser, setAnsweringPlayers, setHadAnsweredPlayerIds, setWaitingAnsweringPlayers]);
 
     return (
@@ -73,6 +77,17 @@ export const InGameInfo: FunctionComponent = function () {
                 輪到誰發言:
             </div> */}
 
+            {tensor !== 0 ? (
+                <div className={styles.tensor}>
+                    <span>你抽到的等級：</span>
+                    <span>{tensor}</span>
+                </div>
+            ) : (
+                <div className={styles.tensor}>
+                    <span>你是猜題者</span>
+                </div>
+            )}
+
             <div className={styles.playerGroup}>答題者</div>
             <div className={styles.player}><span>{guesser}</span></div>
             {
@@ -87,18 +102,41 @@ export const InGameInfo: FunctionComponent = function () {
                     {hadAnsweredPlayers.map((name, index) => <div className={styles.player} key={index}><span>{name}</span></div>)}
                 </>
             } */}
-            {
-                hadAnsweredPlayerIds.length > 0 && <>
-                    <div className={styles.playerGroup}>已回答 ({hadAnsweredPlayerIds.length})</div>
-                    {hadAnsweredPlayerIds.map((id, index) =>
-                        <div className={styles.player} key={index}>
-                            <span>{agent.getParticipant(id)}</span>
-                            <span>{agent.getAnswer(id)}</span>
-                            {agent.getPlayerTensor(id) ? <span>{agent.getPlayerTensor(id)}</span> : <span onClick={() => agent.sort(id)}>你個SB</span>}
-                        </div>  
-                    )}
+
+            
+
+            {agent.getName() !== agent.getGuesser() ? (
+                <>
+                    {
+                        hadAnsweredPlayerIds.length > 0 && <>
+                            <div className={styles.playerGroup}>已回答 ({hadAnsweredPlayerIds.length})</div>
+                            {hadAnsweredPlayerIds.map((id, index) =>
+                                <div className={styles.player} key={index}>
+                                    <span>{agent.getParticipant(id)}</span>
+                                    <span>{agent.getAnswer(id)}</span>
+                                    {agent.getPlayerTensor(id) ? <span>{agent.getPlayerTensor(id)}</span> : <span>你個SB</span>}
+                                </div>  
+                            )}
+                        </>
+                    }
                 </>
-            }
+            ) : (
+                <>
+                    {
+                        hadAnsweredPlayerIds.length > 0 && <>
+                            <div className={styles.playerGroup}>已回答 ({hadAnsweredPlayerIds.length})</div>
+                            {hadAnsweredPlayerIds.map((id, index) =>
+                                <div className={styles.player} key={index}>
+                                    <span>{agent.getParticipant(id)}</span>
+                                    <span>{agent.getAnswer(id)}</span>
+                                    {agent.getPlayerTensor(id) ? <span>{agent.getPlayerTensor(id)}</span> : <span onClick={() => agent.sort(id)}>你個SB</span>}
+                                </div>  
+                            )}
+                        </>
+                    }
+                </>
+            )}
+            
             {
                 waitingAnsweringPlayers.length > 0 && <>
                     <div className={styles.playerGroup}>等待回答 {waitingAnsweringPlayers.length > 1 && `(${waitingAnsweringPlayers.length})`}</div>
