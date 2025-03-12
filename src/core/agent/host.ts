@@ -70,6 +70,7 @@ export class HostAgent extends EventEmitter implements InteractionAgent, GameAge
 
         this.game.on("game-stage-change", stage => {
             this.emit("game-stage-change", stage);
+            this.emit("update-waiting-answering-player", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("new-round", (timestamp: number) => {
@@ -92,30 +93,25 @@ export class HostAgent extends EventEmitter implements InteractionAgent, GameAge
             this.emit("update-question", this.question);
             this.emit("update-answers", this.answers);
             this.emit("update-participants", this.getParticipants());
-            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("player-allow-answering", () => {
             this.emit("update-participants", this.getParticipants());
-            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("players-allow-answering", () => {
             this.emit("update-participants", this.getParticipants());
-            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("player-answer", (player: GameAgent, answer: string) => {
             this.answers.set(player.getId(), answer);
             this.emit("update-answers", this.answers);
             this.emit("update-participants", this.getParticipants());
-            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("player-was-sorted", (player: GameAgent, tensor: number) => {
             this.tensorMap.set(player.getId(), tensor);
             this.emit("update-participants", this.getParticipants());
-            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("life-decrease", () => {
@@ -125,7 +121,6 @@ export class HostAgent extends EventEmitter implements InteractionAgent, GameAge
         this.game.on("tensor-update", (playerId : string, tensor: number) => {
             this.tensorMap.set(playerId, tensor);
             this.emit("update-participants", this.getParticipants());
-            this.emit("update-waiting-answering-players", this.getWaitingAnsweringPlayers());
         });
 
         this.game.on("close", () => {
@@ -303,9 +298,11 @@ export class HostAgent extends EventEmitter implements InteractionAgent, GameAge
     }
 
     public getWaitingAnsweringPlayers(): string[] {
-        return Array.from(this.game.participants.values())
+        const waitingPlayers = Array.from(this.game.participants.values())
             .filter(player => player.getAnswerAllowness() === AgentAnswerAllowness.waiting)
             .map(player => player.getName());
+        console.log("Debug - 待回答玩家列表:", waitingPlayers);
+        return waitingPlayers;
     }
 
     public setReadyState(_state: AgentGameReadyState): void {
